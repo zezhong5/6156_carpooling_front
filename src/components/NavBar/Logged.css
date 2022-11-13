@@ -1,0 +1,40 @@
+.login_info {
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(16, 31%, 74%);
+    height: 7rem;
+    width: 10rem;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 2.3rem;
+    right: 9rem;
+    box-shadow: 3px 2px 3px hsl(17, 15%, 28%);
+}
+
+.login_info div {
+    color: #402313;
+    font-size: 18px;
+}
+.login_info div a {
+    text-decoration: none;
+    color: #402313;
+}
+
+.login_info div a:hover {
+    color: white;
+}
+
+#logout-button {
+    text-decoration: none;
+    color: white;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    cursor: pointer;
+    background-color: #402313;
+    padding: 5px;
+    margin-top: 4px;
+}
+
+#logout-button:hover {
+    background-color: #5a321f;
+}

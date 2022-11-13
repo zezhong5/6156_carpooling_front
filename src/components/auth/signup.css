@@ -1,0 +1,142 @@
+.pfp {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 4px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.custom-file-upload:hover {
+    text-decoration: underline;
+}
+
+#form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding-top: 15px;
+}
+
+#left-container {
+    display: flex;
+    flex-direction: column;
+}
+
+#right-container {
+    display: flex;
+}
+
+#form-item {
+    display: flex;
+}
+
+#signup-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 25px;
+    background-color: #f4f2e9;
+    min-width: 300px;
+}
+
+#signup-header {
+    font-size: 30px;
+    font-weight: 600;
+    padding-top: 15px;
+}
+
+
+#form-container > label {
+    font-size: 18px;
+
+
+}
+
+#form-container > input {
+    border-radius: 5px;
+    height: 20px;
+}
+
+#form-container > textarea {
+    width: 300px;
+    border-radius: 5px;
+    height: 70px;
+    resize: none;
+}
+
+
+#form-container > button {
+    border-radius: 3px;
+    border: 1px solid #D6D0C4;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 14px;
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: #402313;
+    line-height: 1;
+    padding: 8px 12px;
+    box-shadow: 1px 1px 1px grey;
+}
+
+#form-container > button:hover {
+    background-color: #5a321f;
+}
+
+#login-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#login-form-full {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: hsl(16, 31%, 74%);
+    height: 350px;
+    width: 350px;
+}
+
+#login-form-full > label {
+    font-size: 18px;
+    text-decoration: underline;
+    font-weight: bolder;
+    color: white;
+}
+
+#login-form-full > input {
+    border-radius: 25px;
+    height: 20px;
+}
+
+#login-form-full > button {
+    border-radius: 3px;
+    border: 1px solid #D6D0C4;
+    font-family: "Lato", "Helvetica Neue", "Helvetica", sans-serif;
+    font-size: 14px;
+    appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    color: #333333;
+    background-color: #dfdbd4;
+    line-height: 1;
+    padding: 8px 12px;
+    box-shadow: 1px 1px 1px grey;
+}
+
+#login-form-full > button:hover {
+    box-shadow: 1px 1px 1px grey;
+}
