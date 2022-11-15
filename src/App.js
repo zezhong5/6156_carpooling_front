@@ -8,7 +8,10 @@ import HomePage2 from './components/home/homepage2';
 import Home from "./components/home/home";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
+import BoardDetailPage from "./components/boards_page/BoardDetailPage";
 import {render} from 'react-dom'
+import AllBoardsPage from "./components/boards_page/AllBoardPage";
+import NewBoardPage from "./components/boards_page/NewBoardPage";
 
 function App(){
 
@@ -89,6 +92,16 @@ function App(){
                         <Route element={< HomePage2/>} path="/home2" exact/>
                     </Route>
                     <Route element={<Home/>} path='/' exact/>
+                    <Route element={<ProtectedRoute/>}>
+                        <Route path="/boards" element={<AllBoardsPage />} />
+                    </Route>
+                    <Route element={<ProtectedRoute/>}>
+                        <Route path="/boards/:board_id" element={<BoardDetailPage />} />
+                    </Route>
+                    <Route element={<ProtectedRoute/>}>
+                        <Route path="/boards/create" element={<NewBoardPage />} />
+                    </Route>
+
                 </Routes>
             </BrowserRouter>
 

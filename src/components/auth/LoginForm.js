@@ -47,7 +47,7 @@ const LoginForm = ({setShowLogin}) => {
                 <div>
 
                         <div>{errors}</div>
-                   
+
                 </div>
 
                 <label htmlFor="email">Email</label>

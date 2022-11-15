@@ -1,0 +1,19 @@
+#splash-outer-wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.home_component {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    width: 100vw;
+    background-color: #fff;
+    overflow-x: hidden;
+    padding-bottom: 25px;
+}
+

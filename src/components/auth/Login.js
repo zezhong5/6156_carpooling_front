@@ -1,40 +1,43 @@
-import "./home.css";
+import "./Login.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import LoginForm from '../auth/LoginForm'
-import SignUpForm from "../auth/SignUpForm";
+import LoginForm from './LoginForm'
+import SignUpForm from "./SignUpForm";
 import { Modal } from '../../context/Modal';
 import LoginOptions from "../LoginOption/LoginOption";
-import AllBoardPage from "../boards_page/AllBoardPage";
 
-
-const Home = () => {
-
-    const navigate = useNavigate();
-    const session = useSelector((state) => state.session);
+//to do:login in two different tabs
+const Login = ({setShowChildComp}) => {
     const [showLogin, setShowLogin] = useState(false)
     const [showSignup, setShowSignup] = useState(false)
+    const navigate = useNavigate();
+    const session = useSelector((state) => state.session);
 
 
 
 
-    useEffect(() => {
-        if (localStorage.user) {
-           navigate('/home')
-        }
-
-    }, [navigate, localStorage.user])
+    // useEffect(() => {
+    //     if (localStorage.user) {
+    //         navigate('/home')
+    //     }
+    //
+    // }, [navigate, localStorage.user])
+    const handleCancel= e => {
+        e.preventDefault()
+        setShowChildComp(false)
+    }
 
 
 
     return (
 
-        <div id='splash-outer-wrapper'>
 
+
+        <div id='splash-outer-wrapper'>
+            <Modal>
 
             <div className="home_component">
-                <h1 id='home-right-header'>Welcome to Car Pooling Scheduler</h1>
                 {showLogin &&
                     <Modal>
                         <LoginForm setShowLogin={setShowLogin} />
@@ -49,11 +52,13 @@ const Home = () => {
                 <div className="middle-image-streach" >
                     <LoginOptions setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
                 </div>
-
+                <button onClick={(e) => handleCancel(e)}>Cancel</button>
             </div>
+            </Modal>
         </div>
+
     );
 };
 
-export default Home;
+export default Login;
 

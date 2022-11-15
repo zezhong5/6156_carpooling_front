@@ -3,10 +3,13 @@ import { useSelector } from "react-redux";
 import "./NavBar.css";
 import Logged from "./Logged";
 import { Link } from "react-router-dom";
+import LoginButton from "../auth/LoginButton";
+//import LogoutButton from "../auth/LogoutButton";
 
 
 const NavBar = () => {
 
+    // add listener to localstorage?
     const [display, setdisplay] = useState(true)
 
     useEffect(() => {
@@ -41,9 +44,9 @@ const NavBar = () => {
             </div>
 
             <div id="nav-bar-left-container">
-
-
-                {display && <Logged />}
+                <Link to="/boards" id="nav-bar-link">Boards</Link>
+                <Link to="/boards/create" id="nav-bar-link">New</Link>
+                {localStorage.getItem('user') ? <Logged /> : <LoginButton />}
 
             </div>
 
