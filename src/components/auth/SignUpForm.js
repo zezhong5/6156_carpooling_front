@@ -1,24 +1,30 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import { signUp } from "../../store/session";
 import "./signup.css";
 
 const SignUpForm = ({setShowSignup}) => {
     const [errors, setErrors] = useState([]);
     const [username, setUsername] = useState("");
-    const [name, setName] = useState("")
+    const [first_name, setFirstName] = useState("")
+    const [last_name, setLastName] = useState("")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const user = useSelector((state) => state.session.user);
     const dispatch = useDispatch();
+    const [signsuc, setSignsuc] = useState(false);
+    const navigate = useNavigate()
 
     const onSignUp = async (e) => {
         e.preventDefault();
         if (password === repeatPassword) {
-            const data = await dispatch(signUp(username, email, password, name));
+            const data = await dispatch(signUp(username, email, password, first_name, last_name));
+            console.log('success signup')
             if (data) {
+                console.log('inside if')
+                setSignsuc(true)
                 setErrors(data);
             }
         } else {
@@ -47,9 +53,18 @@ const SignUpForm = ({setShowSignup}) => {
         setShowSignup(false)
     }
 
-    if (user) {
-        return <Navigate to="/" />;
-    }
+    // if (signsuc) {
+    //     console.log('sign up very thank you')
+    //     return <Navigate to="/" />;
+    // }
+
+    useEffect( () => {
+            navigate("/");
+        } , [signsuc]
+
+    )
+
+
 
     return (<div id='signup-container'>
         <p id='signup-header'>Create Account</p>
@@ -59,12 +74,20 @@ const SignUpForm = ({setShowSignup}) => {
                     <div key={ind}>{error}</div>
                 ))}
             </div>
-            <label>Your name</label>
+            <label>Your First name</label>
             <input
                 type="text"
-                name="name"
-                onChange={e=>setName(e.target.value)}
-                value={name}
+                first_name="first_name"
+                onChange={e=>setFirstName(e.target.value)}
+                value={first_name}
+            >
+            </input>
+            <label>Your Last name</label>
+            <input
+                type="text"
+                last_name="last_name"
+                onChange={e=>setLastName(e.target.value)}
+                value={last_name}
             >
             </input>
             <label>User Name</label>

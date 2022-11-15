@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
+
 
 const setUser = (user) => ({
     type: SET_USER,
@@ -78,13 +81,14 @@ export const logout = () => async (dispatch) => {
     }
 };
 
-export const signUp = (username, email, password, name) => async (dispatch) => {
+export const signUp = (username, email, password, first_name, last_name) => async (dispatch) => {
     const formData = new FormData()
     formData.append('username',username)
     formData.append('email', email)
     formData.append('password', password)
-    formData.append('name', name)
-
+    formData.append('first_name', first_name)
+    formData.append('last_name', last_name)
+    console.log('begin signup')
     const response = await fetch('/auth/signup', {
         method: 'POST',
         body: formData
@@ -92,16 +96,21 @@ export const signUp = (username, email, password, name) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(setUser(data))
-        return null;
+        // dispatch(setUser(data))
+
+        console.log('signup success in seesion')
+        return data;
+
     }
     else if (response.status < 500) {
         const data = await response.json();
+        console.log('signup not success in seesion')
         if (data.errors) {
             return data.errors;
         }
     }
     else {
+        console.log('signup was not success in seesion')
         return ['An error occurred. Please try again.']
     }
 }
