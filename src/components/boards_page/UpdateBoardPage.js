@@ -10,6 +10,7 @@ export default function UpdateBoardPage(props) {
       body: data,
       headers: {
         ContentType: "application/json",
+        user_id: localStorage.getItem("user_id"),
       },
     })
       .then((response) => response.json())

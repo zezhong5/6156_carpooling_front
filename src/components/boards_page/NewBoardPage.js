@@ -7,6 +7,7 @@ export default function NewBoardPage() {
       body: data,
       headers: {
         ContentType: "application/json",
+        user_id: localStorage.getItem("user_id"),
       },
     });
   }

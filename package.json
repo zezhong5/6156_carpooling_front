@@ -41,5 +41,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://127.0.0.1:5011"
+  "proxy": "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev"
 }

@@ -11,15 +11,15 @@ export default function BoardDetailPage(props) {
   const navigate = useNavigate();
   const { board_id } = useParams();
   const [capNow, setcapNow] = useState();
+  const user_id = localStorage.getItem("user_id");
 
   useEffect(() => {
-    fetch(`http://localhost:5011/requests/${board_id}`)
+    fetch(`http://localhost:5012/requests/${board_id}`)
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
       })
       .then((data) => {
-
         setLoadedBoard(data.data[0]);
       })
       .catch((error) => {
@@ -39,30 +39,27 @@ export default function BoardDetailPage(props) {
   }, [joined]);
 
   const check_capacity = () => {
-      console.log('here we need to check capacity')
-      fetch(`http://localhost:5011/requests/${board_id}/participants`)
-          .then((response) => response.json())
-          .then((data) => setcapNow(data.length));
-      console.log(capNow)
-
-  }
+    console.log("here we need to check capacity");
+    fetch(`http://localhost:5012/requests/${board_id}/participants`)
+      .then((response) => response.json())
+      .then((data) => setcapNow(data.length));
+    console.log(capNow);
+  };
 
   function joinHandler() {
-    console.log(localStorage.getItem('user'));
     check_capacity();
-    console.log('1323413324');
     console.log(loadedBoard.capacity);
-    if(loadedBoard.capacity < capNow){
-        navigate(`/boards/${board_id}`);
+    if (loadedBoard.capacity < capNow) {
+      navigate(`/boards/${board_id}`);
     }
-    fetch(`http://localhost:5011/requests/${board_id}/participants`, {
+    fetch(`http://localhost:5012/requests/${board_id}/participants`, {
       method: "POST",
-      headers: { user_id: localStorage.getItem('user') },
+      headers: { user_id: localStorage.getItem("user_id") },
     })
       .then((response) => {
         if (!response.ok) {
           return response.text().then((text) => {
-              setJoined(true);
+            setJoined(true);
             throw new Error(text);
           });
         }
@@ -77,36 +74,36 @@ export default function BoardDetailPage(props) {
       });
   }
 
-  function check_joined()  {
-      let user_id = localStorage.getItem('user')
-      console.log('inside check_joined')
-      console.log(user_id)
-      let res = fetch(`http://localhost:5011/requests/par/${user_id}/`, {
-          method: "GET"
-      }).then((response) => response.json()).then((data) => {
-          for (const key in data) {
-              if (board_id == data[key]['request_id']) {
-                  console.log('can i reach equal here');
-                  setJoined(true)
-              }
+  function check_joined() {
+    let user_id = localStorage.getItem("user_id");
+    console.log("inside check_joined");
+    console.log(user_id);
+    let res = fetch(`http://localhost:5012/requests/participants/${user_id}`, {
+      method: "GET",
+      headers: {
+        user_id: localStorage.getItem("user_id"),
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        for (const key in data) {
+          if (board_id == data[key]["request_id"]) {
+            console.log("can i reach equal here");
+            setJoined(true);
           }
-      })
-      console.log('should print');
+        }
+      });
+    console.log("should print");
 
-
-
-      for (let i = 0; i < res.length; i++) {
-          console.log(i)
-      }
-
-
-
+    for (let i = 0; i < res.length; i++) {
+      console.log(i);
+    }
   }
 
   function leaveHandler() {
-    fetch(`http://localhost:5011/requests/${board_id}/participants`, {
+    fetch(`http://localhost:5012/requests/${board_id}/participants`, {
       method: "DELETE",
-      headers: { user_id: localStorage.getItem('user') },
+      headers: { user_id: localStorage.getItem("user_id") },
     })
       .then((response) => response.json())
       .then((rsp) => {
@@ -126,7 +123,7 @@ export default function BoardDetailPage(props) {
       <button className="btn" onClick={() => navigate("/boards")}>
         Back
       </button>
-        {check_joined()}
+      {check_joined()}
       {joined ? (
         <button className="btn" onClick={leaveHandler}>
           Leave List

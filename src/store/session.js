@@ -46,8 +46,9 @@ export const login = (email, password) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log(data.email);
-    dispatch(setUser(data));
+    const user = data.user;
+    console.log(user);
+    dispatch(setUser(user));
     console.log("dispatch success");
     return null;
   } else if (response.status < 500) {
@@ -62,7 +63,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   console.log("i wang to log out");
-  const response = await fetch("/auth/logout", {
+  const response = await fetch("http://127.0.0.1:5011/auth/logout", {
     headers: {
       "Content-Type": "application/json",
     },
@@ -109,9 +110,11 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_USER:
       localStorage.setItem("user", action.payload.username);
+      localStorage.setItem("user_id", action.payload.id);
       return { user: action.payload };
     case REMOVE_USER:
       localStorage.removeItem("user");
+      localStorage.removeItem("user_id");
       return { user: null };
     default:
       return state;

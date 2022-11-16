@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 export default function ParticipantList(props) {
   const [participants, setParticipants] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:5011/requests/${props.request_id}/participants`)
+    fetch(`http://localhost:5012/requests/${props.request_id}/participants`)
       .then((response) => response.json())
-      .then((data) => setParticipants(data));
+      .then((data) => setParticipants(data.data));
   }, [props.joined]);
 
   function fetchInformationForUser(url) {
