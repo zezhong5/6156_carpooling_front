@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function NewBoardForm(props) {
-  const [start, setStart] = useState("");
-  const [destination, setDestination] = useState("");
-  const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [capacity, setCapacity] = useState(0);
+  const [start, setStart] = useState("pitt");
+  const [destination, setDestination] = useState("ppt");
+  const [time, setTime] = useState("12:30");
+  const [date, setDate] = useState("04/04/2022");
+  const [description, setDescription] = useState("dfdsfdsf");
+  const [capacity, setCapacity] = useState(4);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function NewBoardForm(props) {
     data.append("capacity", capacity);
 
     props.callBackend(data);
-    navigate(-1);
+    navigate("/boards");
   }
 
   function cancelHandler(e) {

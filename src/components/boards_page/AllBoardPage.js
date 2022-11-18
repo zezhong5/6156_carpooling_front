@@ -7,12 +7,19 @@ function AllBoardsPage() {
   const [prevUrl, setPrevUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");
   useEffect(() => {
-    fetch(`http://127.0.0.1:5012/${endPointUrl}`)
-      .then((response) => response.json())
+    fetch(endPointUrl)
+      .then((response) => {
+        console.log(response.status);
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
+      })
       .then((data) => {
         setLoadedBoards(data.data);
         setNextUrl(data.next);
         setPrevUrl(data.previous);
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }, [endPointUrl]);
 
