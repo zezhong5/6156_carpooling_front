@@ -3,6 +3,8 @@ import ParticipantList from "../../components/boards/ParticipantList";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/session";
 
 export default function BoardDetailPage(props) {
   const [loadedBoard, setLoadedBoard] = useState([]);
@@ -11,6 +13,7 @@ export default function BoardDetailPage(props) {
   const { board_id } = useParams();
   const user_id = localStorage.getItem("user_id");
   const [participants, setParticipants] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(`/requests/${board_id}`)
@@ -31,8 +34,16 @@ export default function BoardDetailPage(props) {
   }
 
   useEffect(() => {
-    fetch(`/requests/${board_id}/participants`)
-      .then((response) => response.json())
+    console.log(`Bearer ${localStorage.getItem("access_token")}`);
+    fetch(`/requests/${board_id}/participants`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
+      })
       .then((data) => {
         const participantList = data.data;
         setParticipants(participantList);
@@ -40,6 +51,11 @@ export default function BoardDetailPage(props) {
           (element) => element.user_id == localStorage.getItem("user_id")
         );
         setJoined(ifJoined);
+      })
+      .catch((error) => {
+        console.log(error);
+        //navigate("/boards");
+        dispatch(logout());
       });
   }, []);
 
@@ -50,15 +66,14 @@ export default function BoardDetailPage(props) {
     }
     fetch(`/requests/${board_id}/participants`, {
       method: "POST",
-      headers: { user_id: user_id },
+      headers: {
+        user_id: user_id,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
     })
       .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-        response.json();
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
       })
       .then((rsp) => {
         console.log(participants);
@@ -68,21 +83,40 @@ export default function BoardDetailPage(props) {
         ]);
         setJoined(true);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((status) => {
+        if (status === 401) {
+          console.log(status);
+          dispatch(logout());
+        } else {
+          navigate("/boards");
+        }
       });
   }
 
   function leaveHandler() {
     fetch(`/requests/${board_id}/participants`, {
       method: "DELETE",
-      headers: { user_id: user_id },
+      headers: {
+        user_id: user_id,
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error(response.status);
+        return response.json();
+      })
       .then((rsp) => {
         console.log(rsp);
         setJoined(false);
         setParticipants(participants.filter((user) => user.user_id != user_id));
+      })
+      .catch((status) => {
+        console.log(status);
+        if (status === 401) {
+          dispatch(logout());
+        } else {
+          navigate("/boards");
+        }
       });
   }
 

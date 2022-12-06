@@ -10,6 +10,7 @@ export default function NewBoardPage() {
       headers: {
         contentType: "application/x-www-form-urlencoded",
         user_id: localStorage.getItem("user_id"),
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
     });
   }

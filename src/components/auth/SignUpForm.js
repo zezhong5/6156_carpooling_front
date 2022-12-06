@@ -19,16 +19,19 @@ const SignUpForm = ({ setShowSignup }) => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
+    console.log("here");
     if (password === repeatPassword) {
-      const data = await dispatch(
+      const [success, msg] = await dispatch(
         signUp(username, email, password, first_name, last_name)
       );
       console.log("success signup");
-      if (data) {
+      if (success) {
         console.log("inside if");
         setSignsuc(true);
-        setErrors(data);
+
         setShowSignup(false);
+      } else {
+        setErrors(msg);
       }
     } else {
       setErrors(["Passwords do not match."]);
