@@ -12,6 +12,7 @@ import BoardDetailPage from "./components/boards_page/BoardDetailPage";
 import { render } from "react-dom";
 import AllBoardsPage from "./components/boards_page/AllBoardPage";
 import NewBoardPage from "./components/boards_page/NewBoardPage";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 function App() {
   const [loaded, setLoaded] = useState(true);
@@ -89,6 +90,9 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/boards/create" element={<NewBoardPage />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
