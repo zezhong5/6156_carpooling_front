@@ -22,7 +22,8 @@
     "start": "PORT=4000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "aws s3 sync build/ s3://6156-project-frontend"
   },
   "eslintConfig": {
     "extends": [
@@ -42,7 +43,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev",
   "devDependencies": {
     "http-proxy-middleware": "^2.0.6"
   }

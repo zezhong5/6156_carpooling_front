@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import BoardList from "../../components/boards/BoardList";
 function AllBoardsPage() {
   const [loadedBoards, setLoadedBoards] = useState([]);
-  const [endPointUrl, setEndPointUrl] = useState("/requests");
+  const [endPointUrl, setEndPointUrl] = useState(
+    "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/requests"
+  );
 
   const [prevUrl, setPrevUrl] = useState("");
   const [nextUrl, setNextUrl] = useState("");

@@ -16,7 +16,9 @@ export default function BoardDetailPage(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch(`/requests/${board_id}`)
+    fetch(
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/requests/${board_id}`
+    )
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
@@ -25,6 +27,7 @@ export default function BoardDetailPage(props) {
         setLoadedBoard(data.data[0]);
       })
       .catch((error) => {
+        console.log(error);
         navigate("/boards");
       });
   }, [board_id]);
@@ -35,11 +38,14 @@ export default function BoardDetailPage(props) {
 
   useEffect(() => {
     console.log(`Bearer ${localStorage.getItem("access_token")}`);
-    fetch(`/requests/${board_id}/participants`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
+    fetch(
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/requests/${board_id}/participants`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
@@ -64,13 +70,15 @@ export default function BoardDetailPage(props) {
       console.log("unable to join, full");
       return;
     }
-    fetch(`/requests/${board_id}/participants`, {
-      method: "POST",
-      headers: {
-        user_id: user_id,
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
+    fetch(
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/requests/${board_id}/participants`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
@@ -94,13 +102,15 @@ export default function BoardDetailPage(props) {
   }
 
   function leaveHandler() {
-    fetch(`/requests/${board_id}/participants`, {
-      method: "DELETE",
-      headers: {
-        user_id: user_id,
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
+    fetch(
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/requests/${board_id}/participants`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();

@@ -6,17 +6,14 @@ export default function ProfileUpdatePage(props) {
 
   function updateProfileHandler(data) {
     data = new URLSearchParams(data);
-    fetch(
-      `http://localhost:5011/contacts/users/219f926e-778a-4c6e-8320-a900fab47ce6/`,
-      {
-        method: "PUT",
-        body: data,
-        headers: {
-          contentType: "application/x-www-form-urlencoded",
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5011/contacts/users`, {
+      method: "PUT",
+      body: data,
+      headers: {
+        contentType: "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
       .then((response) => response.json())
       .then((rsp) => console.log(rsp));
   }

@@ -16,14 +16,12 @@ export default function ProfilePage(props) {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `http://127.0.0.1:5011/contacts/users/219f926e-778a-4c6e-8320-a900fab47ce6/`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      }
-    )
+    fetch(`http://127.0.0.1:5011/contacts/users/`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    })
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
@@ -33,6 +31,7 @@ export default function ProfilePage(props) {
       })
       .catch((error) => {
         console.log(error);
+        dispatch(logout());
       });
   }, []);
 

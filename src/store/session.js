@@ -26,11 +26,14 @@ const removeAccessToken = () => ({
 const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
-  const response = await fetch("/auth", {
-    headers: {
-      ContentType: "application/json",
-    },
-  });
+  const response = await fetch(
+    "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/auth",
+    {
+      headers: {
+        ContentType: "application/json",
+      },
+    }
+  );
   if (response.ok) {
     const data = await response.json();
     if (data.errors) {
@@ -48,13 +51,16 @@ export const login = (email, password) => async (dispatch) => {
   formData.append("email", email);
   formData.append("password", password);
   const data = new URLSearchParams(formData);
-  const response = await fetch("/login", {
-    method: "POST",
-    body: data,
-    headers: {
-      ContentType: "application/json",
-    },
-  });
+  const response = await fetch(
+    "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/login",
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        contentType: "application/x-www-form-urlencoded",
+      },
+    }
+  );
 
   if (response.ok) {
     const data = await response.json();
@@ -129,13 +135,16 @@ export const signUp =
     formData.append("last_name", last_name);
     const data = new URLSearchParams(formData);
 
-    const response = await fetch("/signup", {
-      method: "POST",
-      body: data,
-      headers: {
-        contentType: "application/x-www-form-urlencoded",
-      },
-    });
+    const response = await fetch(
+      "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/signup",
+      {
+        method: "POST",
+        body: data,
+        headers: {
+          contentType: "application/x-www-form-urlencoded",
+        },
+      }
+    );
     console.log(response.status);
     if (response.ok) {
       const data = response.json();
