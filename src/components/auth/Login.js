@@ -6,7 +6,6 @@ import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
 import { Modal } from "../../context/Modal";
 import LoginOptions from "../LoginOption/LoginOption";
-import GithubOauth from "./GithubOauth";
 
 //to do:login in two different tabs
 const Login = ({ setShowChildComp }) => {
@@ -50,7 +49,6 @@ const Login = ({ setShowChildComp }) => {
           <button onClick={(e) => handleCancel(e)}>Cancel</button>
         </div>
       </Modal>
-      <GithubOauth />
     </div>
   );
 };

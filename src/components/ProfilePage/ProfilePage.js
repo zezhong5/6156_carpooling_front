@@ -14,26 +14,33 @@ export default function ProfilePage(props) {
   const [userInfo, setUserInfo] = useState({});
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:5011/contacts/users/`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
+    console.log("reach");
+    fetch(
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/contacts/user`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) throw new Error(response.status);
         return response.json();
       })
       .then((data) => {
+        console.log("success");
+        console.log(data);
         setUserInfo(data);
       })
       .catch((error) => {
         console.log(error);
         dispatch(logout());
       });
-  }, []);
+  }, [false]);
 
   function fetchInformationForUser(url) {
     console.log(url);
@@ -49,7 +56,11 @@ export default function ProfilePage(props) {
     <div>
       <h1>Profile</h1>
       {isEditing ? (
-        <ProfileUpdatePage data={userInfo} back={setIsEditing} />
+        <ProfileUpdatePage
+          data={userInfo}
+          back={setIsEditing}
+          refresh={setRefresh}
+        />
       ) : (
         <>
           <ProfileInfo data={userInfo} />

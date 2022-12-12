@@ -27,7 +27,7 @@ const initialState = { user: null };
 
 export const authenticate = () => async (dispatch) => {
   const response = await fetch(
-    "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/auth",
+    "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/oauth/github",
     {
       headers: {
         ContentType: "application/json",
@@ -82,11 +82,7 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const githubLogin = () => async (dispatch) => {
-  const response = await fetch("http://127.0.0.1:5011/oauth/login/github", {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
-  });
+  const response = await fetch("http://127.0.0.1:5011/oauth2/login/google/");
   console.log("here");
   if (response.ok) {
     const data = await response.json();
@@ -125,42 +121,39 @@ export const logout = () => async (dispatch) => {
   // }
 };
 
-export const signUp =
-  (username, email, password, first_name, last_name) => async (dispatch) => {
-    const formData = new FormData();
-    formData.append("username", username);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("first_name", first_name);
-    formData.append("last_name", last_name);
-    const data = new URLSearchParams(formData);
+export const signUp = (username, email, password) => async (dispatch) => {
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+  const data = new URLSearchParams(formData);
 
-    const response = await fetch(
-      "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/signup",
-      {
-        method: "POST",
-        body: data,
-        headers: {
-          contentType: "application/x-www-form-urlencoded",
-        },
-      }
-    );
-    console.log(response.status);
-    if (response.ok) {
-      const data = response.json();
-      // dispatch(setUser(data))
-
-      console.log("signup success in seesion");
-      return [true, data];
-    } else if (response.status < 500) {
-      const data = await response.json();
-      console.log(data);
-      return [false, [data["message"]]];
-    } else {
-      console.log("signup was not success in seesion");
-      return [false, ["An error occurred. Please try again."]];
+  const response = await fetch(
+    "https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/signup",
+    {
+      method: "POST",
+      body: data,
+      headers: {
+        contentType: "application/x-www-form-urlencoded",
+      },
     }
-  };
+  );
+  console.log(response.status);
+  if (response.ok) {
+    const data = response.json();
+    // dispatch(setUser(data))
+
+    console.log("signup success in seesion");
+    return [true, data];
+  } else if (response.status < 500) {
+    const data = await response.json();
+    console.log(data);
+    return [false, [data["message"]]];
+  } else {
+    console.log("signup was not success in seesion");
+    return [false, ["An error occurred. Please try again."]];
+  }
+};
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {

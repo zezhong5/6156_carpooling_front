@@ -6,15 +6,13 @@ import React, { useState } from "react";
 const GithubOauth = () => {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
-  const onLogin = async () => {
-    console.log("successful login");
-    const data = await dispatch(githubLogin());
-    if (data) {
-      setErrors(data);
-    }
+  const onLogin = () => {
+    fetch("http://127.0.0.1:5011/oauth/login/google").then((rsp) => {
+      console.log("reach");
+    });
   };
   return (
-    <a className="login-link" onClick={() => onLogin()}>
+    <a className="login-link" href="http://127.0.0.1:5011/oauth/login/google">
       <GithubIcon />
       <span>Login with Github</span>
     </a>

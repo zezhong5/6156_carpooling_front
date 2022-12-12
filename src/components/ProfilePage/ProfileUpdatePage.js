@@ -6,16 +6,22 @@ export default function ProfileUpdatePage(props) {
 
   function updateProfileHandler(data) {
     data = new URLSearchParams(data);
-    fetch(`http://localhost:5011/contacts/users`, {
-      method: "PUT",
-      body: data,
-      headers: {
-        contentType: "application/x-www-form-urlencoded",
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-      },
-    })
+    fetch(
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/contacts/user`,
+      {
+        method: "PUT",
+        body: data,
+        headers: {
+          contentType: "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      }
+    )
       .then((response) => response.json())
-      .then((rsp) => console.log(rsp));
+      .then((rsp) => {
+        console.log(rsp);
+        props.refresh(true);
+      });
   }
   return (
     <div>

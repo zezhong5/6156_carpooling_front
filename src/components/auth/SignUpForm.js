@@ -7,8 +7,6 @@ import "./signup.css";
 const SignUpForm = ({ setShowSignup }) => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -21,9 +19,7 @@ const SignUpForm = ({ setShowSignup }) => {
     e.preventDefault();
     console.log("here");
     if (password === repeatPassword) {
-      const [success, msg] = await dispatch(
-        signUp(username, email, password, first_name, last_name)
-      );
+      const [success, msg] = await dispatch(signUp(username, email, password));
       console.log("success signup");
       if (success) {
         console.log("inside if");
@@ -68,21 +64,7 @@ const SignUpForm = ({ setShowSignup }) => {
             <div key={ind}>{error}</div>
           ))}
         </div>
-        <label>Your First name</label>
-        <input
-          type="text"
-          first_name="first_name"
-          onChange={(e) => setFirstName(e.target.value)}
-          value={first_name}
-        ></input>
-        <label>Your Last name</label>
-        <input
-          type="text"
-          last_name="last_name"
-          onChange={(e) => setLastName(e.target.value)}
-          value={last_name}
-        ></input>
-        <label>User Name</label>
+        <label>Username</label>
         <input
           type="text"
           name="username"

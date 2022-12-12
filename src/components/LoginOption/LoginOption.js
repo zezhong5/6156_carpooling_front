@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../store/session";
 import { useDispatch } from "react-redux";
 import GithubOauth from "../auth/GithubOauth";
+import GoogleLoginButton from "../auth/GoogleLoginButton";
+
 const LoginOptions = ({ setShowLogin, setShowSignup }) => {
   const dispatch = useDispatch();
   const history = useNavigate();

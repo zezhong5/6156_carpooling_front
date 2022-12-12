@@ -13,10 +13,11 @@ import { render } from "react-dom";
 import AllBoardsPage from "./components/boards_page/AllBoardPage";
 import NewBoardPage from "./components/boards_page/NewBoardPage";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import GoogleLoggedIn from "./components/auth/GoogleLoggedIn";
 
 function App() {
   const [loaded, setLoaded] = useState(true);
-  const [disnav, setDisnav] = useState(true);
+  const [disnav, setDisnav] = useState(false);
   const dispatch = useDispatch();
   const session = useSelector((state) => state.session);
   /*
@@ -51,9 +52,15 @@ function App() {
   }, []);
   if (session.user) {
     <Navigate to="/home" />;
-  } else {
-    <Navigate to="/" />;
   }
+
+  useEffect(() => {
+    console.log("here");
+    if (localStorage.getItem("user")) {
+      console.log("show");
+      setDisnav(true);
+    }
+  }, [localStorage.getItem("user")]);
   /*
     render()
     {
@@ -71,7 +78,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {localStorage.getItem("user") ? <NavBar /> : null}
+      {disnav ? <NavBar /> : null}
 
       <Routes>
         <Route element={<ProtectedRoute />}>
@@ -93,6 +100,12 @@ function App() {
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route path="/profile" element={<ProfilePage />} />
+        </Route>
+        <Route>
+          <Route
+            path="/loggedin"
+            element={<GoogleLoggedIn showNav={setDisnav} />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
