@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Address from "./Address";
 
 export default function ProfileForm(props) {
   const [first, setFirst] = useState("");
@@ -69,16 +70,8 @@ export default function ProfileForm(props) {
           value={phone}
         />
       </div>
-      <div className="form-group">
-        <label htmlFor="address">Address</label>
-        <input
-          type="text"
-          id="address"
-          className="form-control"
-          onChange={(e) => setAddress(e.target.value)}
-          value={address}
-        />
-      </div>
+      <Address setAddress={setAddress} address_value={address} />
+
       <button className="btn btn-primary">Submit</button>
       <button className="btn btn-gray" onClick={cancelHandler}>
         Cancel

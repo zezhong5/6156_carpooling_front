@@ -19,7 +19,7 @@ export default function ProfilePage(props) {
   useEffect(() => {
     console.log("reach");
     fetch(
-      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/contacts/user`,
+      `https://pjcazp54o3.execute-api.us-east-1.amazonaws.com/dev/userinfo`,
       {
         method: "GET",
         headers: {

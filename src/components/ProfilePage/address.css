@@ -1,0 +1,29 @@
+.active {
+  display: block;
+}
+
+.inactive {
+  display: none;
+}
+
+#suggestionContainer {
+  position: relative;
+}
+
+#suggestionBox {
+  position: relative;
+  border: solid 1px #000;
+  background-color: #fff;
+  height: 300px;
+  overflow-y: scroll;
+  cursor: pointer;
+}
+
+#suggestionBox div {
+  padding: 10px;
+}
+
+#suggestionBox div:hover {
+  background-color: #06c;
+  color: #fff;
+}
