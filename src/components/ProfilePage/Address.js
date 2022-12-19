@@ -29,7 +29,6 @@ export default function Address(props) {
   const sendLookupRequest = async (searchValue) => {
     suggestionElement.current.innerHTML = "";
     setClassActive("active");
-    console.log("here");
     props.setAddress(searchValue);
     const params = new URLSearchParams({
       key: smartyKey,

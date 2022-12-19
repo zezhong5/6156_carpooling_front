@@ -3,8 +3,6 @@ export default function BoardItem(props) {
     <div className="card">
       <div className="card-header">Board</div>
       <div className="card-body">
-        <h5 className="card-title">Special title treatment</h5>
-
         <p className="card-text">start location: {props.data.start_location}</p>
         <p className="card-text">destination: {props.data.destination}</p>
         <p className="card-text">launch date: {props.data.launch_date}</p>

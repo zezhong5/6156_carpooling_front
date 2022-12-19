@@ -1,4 +1,4 @@
-import GithubIcon from "mdi-react/GithubIcon";
+import GoogleIcon from "mdi-react/GoogleIcon";
 import { githubLogin } from "../../store/session";
 import { useSelector, useDispatch } from "react-redux";
 import React, { useState } from "react";
@@ -13,8 +13,8 @@ const GithubOauth = () => {
   };
   return (
     <a className="login-link" href="http://127.0.0.1:5011/oauth/login/google">
-      <GithubIcon />
-      <span>Login with Github</span>
+      <GoogleIcon />
+      <span>Login with Google</span>
     </a>
   );
 };
